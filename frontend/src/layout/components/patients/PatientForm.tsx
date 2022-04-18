@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Button, Select, Input } from 'antd';
+import { Button, Select, Input, DatePicker } from 'antd';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import moment from 'moment';
 
 import ImageLoader from './ImageLoader';
 import { hasErrorFactory } from '../../../utils/hasError';
@@ -21,21 +22,23 @@ const defaultSubmitText = 'Add patient';
 const emptyPatient = {
   name: null,
   address: null,
-  status: null,
   age: null,
   number: null,
   gender: null,
-  img: null
+  img: null,
+  id: null,
+  email: null
 };
 
 const patientScheme = Yup.object({
   name: Yup.string().required(),
   address: Yup.string().required(),
-  status: Yup.string().required(),
   age: Yup.string().required(),
   number: Yup.string().required(),
   gender: Yup.string().required(),
-  img: Yup.string().required()
+  img: Yup.string().required(),
+  id: Yup.string().required(),
+  email: Yup.string().required()
 });
 
 const PatientForm = ({
@@ -66,7 +69,6 @@ const PatientForm = ({
   });
 
   const handleGenderSelect = (value) => setFieldValue('gender', value);
-  const handleStatusSelect = (value) => setFieldValue('status', value);
 
   const hasError = hasErrorFactory(touched, errors);
 
@@ -77,6 +79,10 @@ const PatientForm = ({
 
   const handleImageLoad = (img) => {
     setValues({ ...values, img });
+  };
+  const dateFormat = 'YYYY/MM/DD';
+  const handleChangedate = (date, birthDate) => {
+    setValues({ ...values, birthDate });
   };
 
   return (
@@ -142,19 +148,6 @@ const PatientForm = ({
         </div>
 
         <div className='form-group'>
-          <Select
-            placeholder='Status'
-            defaultValue={values.status}
-            onChange={handleStatusSelect}
-            className={hasError('status')}
-            onBlur={() => setFieldTouched('status')}
-          >
-            <Select.Option value='Approved'>Approved</Select.Option>
-            <Select.Option value='Pending'>Pending</Select.Option>
-          </Select>
-        </div>
-
-        <div className='form-group'>
           <TextArea
             rows={3}
             name='address'
@@ -165,7 +158,34 @@ const PatientForm = ({
             className={hasError('address')}
           />
         </div>
-
+        <div className='form-group'>
+          <Input
+            placeholder='id'
+            name='id'
+            type='text'
+            onBlur={handleBlur}
+            onChange={handleChange}
+            defaultValue={values.id}
+            className={hasError('id')}
+          />
+        </div>
+        <div className='form-group'>
+        <Input
+            placeholder='Email'
+            name='email'
+            type='email'
+            onBlur={handleBlur}
+            onChange={handleChange}
+            defaultValue={values.email}
+            className={hasError('email')}
+          />
+        </div>
+        <div className='form-group'>
+        <DatePicker name="date" 
+          onChange={handleChangedate}
+          defaultValue={values.birthDate ? moment(values.birthDate) : null }
+        />
+        </div>
         <div className='d-flex justify-content-between buttons-list settings-actions'>
           <Button danger onClick={handleCancel}>
             Cancel

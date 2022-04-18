@@ -6,12 +6,12 @@ import { ColumnProps } from 'antd/es/table';
 import { Avatar, Table, Button, Modal, Tag } from 'antd';
 
 import { IPatient } from '../../../interfaces/patient';
-
+// import editedPatients from '../../../redux/patients/reducer';
 import PatientForm from '../../../layout/components/patients/PatientForm';
 
 type Props = {
   patients: IPatient[];
-  onEditPatient?: (patient: IPatient) => void;
+  onEditPatient: (patient: IPatient) => void;
   onDeletePatient?: (id: string) => void;
 };
 
@@ -54,22 +54,22 @@ const PatientsTable = ({
       <Button shape='circle' onClick={handleShowInfo}>
         <span className='icofont icofont-external-link' />
       </Button>
-      <Button onClick={handleEditPatient.bind({}, patient)} shape='circle' type='primary'>
+      <Button onClick={handleEditPatient.bind({}, patient,patient._id)} shape='circle' type='primary'>
         <span className='icofont icofont-edit-alt' />
       </Button>
-      <Button onClick={handleDeletePatient.bind({}, patient.id)} shape='circle' danger>
+      <Button onClick={handleDeletePatient.bind({}, patient._id)} shape='circle' danger>
         <span className='icofont icofont-ui-delete' />
       </Button>
     </div>
   );
 
   const columns: ColumnProps<IPatient>[] = [
-    {
-      // key: 'img',
-      // title: 'Photo',
-      // dataIndex: 'img',
-      // render: (img) => <PatientImg img={img} />
-    },
+    // {
+    //   key: 'img',
+    //   title: 'Photo',
+    //   dataIndex: 'img',
+    //   render: (img) => <PatientImg img={img} />
+    // },
     {
       key: 'name',
       dataIndex: 'name',
@@ -117,26 +117,36 @@ const PatientsTable = ({
       )
     },
     {
-      key: 'visit',
-      dataIndex: 'lastVisit',
-      title: 'Last visit',
-      render: (visit) => (
-        <span className='nowrap' style={{ color: '#a5a5a5' }}>
-          {visit}
+      key: 'email',
+      dataIndex: 'email',
+      title: ' Email address',
+      render: (email) => (
+        <span className='nowrap'>
+          {email}
         </span>
       )
     },
     {
-      key: 'status',
-      dataIndex: 'status',
-      title: 'Status',
-      render: (status) => (
-        <Tag style={{ borderRadius: 20 }} color={status === 'Approved' ? '#b7ce63' : '#cec759'}>
-          {status}
-        </Tag>
-      ),
-      sorter: (a, b) => (a.status > b.status ? 1 : -1)
+      key: 'birthDate',
+      dataIndex: 'birthDate',
+      title: ' BirthDate',
+      render: (birthDate) => (
+        <span className='nowrap'>
+          {birthDate}
+        </span>
+      )
     },
+    // {
+    //   key: 'status',
+    //   dataIndex: 'status',
+    //   title: 'Status',
+    //   render: (status) => (
+    //     <Tag style={{ borderRadius: 20 }} color={status === 'Approved' ? '#b7ce63' : '#cec759'}>
+    //       {status}
+    //     </Tag>
+    //   ),
+    //   sorter: (a, b) => (a.status > b.status ? 1 : -1)
+    // },
     {
       key: 'actions',
       title: 'Actions',
@@ -160,6 +170,7 @@ const PatientsTable = ({
         visible={visibility}
         footer={null}
         onCancel={closeModal}
+        destroyOnClose
         title={<h3 className='title'>Add patient</h3>}
       >
         <PatientForm

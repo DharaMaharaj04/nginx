@@ -8,7 +8,6 @@ import { IAppState } from '../interfaces/app-state';
 export function usePatients() {
   const dispatch = useDispatch();
   const patients = useSelector<IAppState, IPatient[]>((state) => state.patients);
-  console.log(patients);
 
   const editPatient = (patient: IPatient) => {
     return dispatch(actions.editPatient(patient));

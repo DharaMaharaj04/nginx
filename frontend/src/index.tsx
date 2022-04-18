@@ -9,7 +9,7 @@ import App from './App';
 
 import * as serviceWorker from './serviceWorker';
 import { HashRouter } from 'react-router-dom';
-store.subscribe(() => console.log(store.getState()));
+// store.subscribe(() => console.log(store.getState()));
 ReactDOM.render(
   <Provider store={store}>
     <HashRouter>

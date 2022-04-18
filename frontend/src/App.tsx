@@ -6,7 +6,9 @@ import NotFound from './pages/sessions/404';
 import { defaultRoutes, sessionRoutes } from './routing';
 import './App.scss';
 import { useHideLoader } from './hooks/useHideLoader';
-
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './custom.css';
 const Routes = ({ routes, layout = '' }) => (
   <Switch>
     {routes.map((route, index) => (
@@ -22,6 +24,7 @@ const Routes = ({ routes, layout = '' }) => (
       <Redirect to='/public/page-404' />
     </Route>
   </Switch>
+  
 );
 
 const DefaultRoutes = ({ layout }) => <Routes routes={defaultRoutes} layout={layout} />;
@@ -50,6 +53,7 @@ const App = () => {
       <Route path='/vertical'>
         <VerticalLayout>
           <DefaultRoutes layout='vertical' />
+          <ToastContainer autoClose={100000}  />
         </VerticalLayout>
       </Route>
 

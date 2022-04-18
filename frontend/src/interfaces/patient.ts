@@ -1,5 +1,6 @@
 export interface IPatient {
   id?: string;
+  _id?: string;
   img?: string | ArrayBuffer;
   profileImg?: string | ArrayBuffer;
   name: string;
@@ -12,6 +13,8 @@ export interface IPatient {
   address: string;
   status?: string;
   lastVisit?: string;
+  birthDate?: string;
+  email?: string
 }
 
 export interface IAppointment {
