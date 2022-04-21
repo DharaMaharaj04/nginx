@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:9000/patients';
+const url = 'http://54.175.49.226:9000/patients';
 
 export const fetchPatient = () => axios.get(url);
 export const createPatient = (newPatient) => axios.post(url, newPatient);

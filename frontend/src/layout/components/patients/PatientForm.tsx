@@ -183,6 +183,7 @@ const PatientForm = ({
         <div className='form-group'>
         <DatePicker name="date" 
           onChange={handleChangedate}
+          onBlur={handleBlur}
           defaultValue={values.birthDate ? moment(values.birthDate) : null }
         />
         </div>

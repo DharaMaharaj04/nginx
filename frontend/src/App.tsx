@@ -53,7 +53,7 @@ const App = () => {
       <Route path='/vertical'>
         <VerticalLayout>
           <DefaultRoutes layout='vertical' />
-          <ToastContainer autoClose={100000}  />
+          <ToastContainer autoClose={5000}  />
         </VerticalLayout>
       </Route>
 
